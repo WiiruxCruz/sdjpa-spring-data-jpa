@@ -1,7 +1,10 @@
 package guru.springframework.jdbc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,18 @@ import guru.springframework.jdbc.repositories.BookRepository;
 public class BookRepositoryTest {
 	@Autowired
 	BookRepository br;
+	
+	@Test
+	void testBookStream() {
+		AtomicInteger count = new AtomicInteger();
+		
+		br.findAllByTitleNotNull().forEach(
+			book -> {
+				count.incrementAndGet();
+		});
+		
+		assertThat(count.get()).isGreaterThan(5);
+	}
 	
 	@Test
 	void testEmptyResultException() {
