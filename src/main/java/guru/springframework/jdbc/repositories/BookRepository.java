@@ -14,6 +14,8 @@ import org.springframework.scheduling.annotation.Async;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 	
+	Book jpaNamed(@Param("title") String title);
+	
 	@Query(value = "SELECT * FROM book WHERE title = :title", nativeQuery = true)
 	Book findBookBytitleNativeQuery(@Param("title") String title);
 	
