@@ -1,5 +1,7 @@
 package guru.springframework.jdbc.dao.impl;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -14,13 +16,19 @@ public class BookDaoJDBCTemplate implements BookDao {
 	public BookDaoJDBCTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
+	@Override
+	public List<Book> findAllBooks() {
+		
+		return jdbcTemplate.query("SELECT * FROM Book", getBookMapper());
+	}
 
 	@Override
 	public Book findByTitle(String title) {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.queryForObject(
 			"SELECT * FROM book where title = ?",
-			getRowMapper(),
+			getBookMapper(),
 			title
 		);
 	}
@@ -30,7 +38,7 @@ public class BookDaoJDBCTemplate implements BookDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.queryForObject(
 			"SELECT * FROM book where id = ?",
-			getRowMapper(),
+			getBookMapper(),
 			id
 		);
 	}
@@ -74,7 +82,7 @@ public class BookDaoJDBCTemplate implements BookDao {
 		);
 	}
 
-	private RowMapper<Book> getRowMapper() {
+	private RowMapper<Book> getBookMapper() {
 		return new BookMapper();
 	}
 }
