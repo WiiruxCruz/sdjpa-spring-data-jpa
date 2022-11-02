@@ -2,6 +2,8 @@ package guru.springframework.jdbc.dao.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import guru.springframework.jdbc.dao.BookDao;
 import guru.springframework.jdbc.domain.Book;
 import guru.springframework.jdbc.repositories.BookRepository;
@@ -14,6 +16,11 @@ public class BookDaoImpl implements BookDao {
 	
 	public BookDaoImpl(BookRepository br) {
 		this.br = br;
+	}
+	
+	@Override
+	public List<Book> findAllBooks(Pageable pageable) {
+		return null;
 	}
 	
 	@Override

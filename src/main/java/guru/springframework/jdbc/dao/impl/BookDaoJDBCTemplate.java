@@ -2,6 +2,7 @@ package guru.springframework.jdbc.dao.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -15,6 +16,15 @@ public class BookDaoJDBCTemplate implements BookDao {
 	
 	public BookDaoJDBCTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	@Override
+	public List<Book> findAllBooks(Pageable pageable) {
+		return jdbcTemplate.query("SELECT * FROM Book limit ? offset ?",
+			getBookMapper(),
+			pageable.getPageSize(),
+			pageable.getOffset()
+		);
 	}
 	
 	@Override
