@@ -17,6 +17,11 @@ public class BookDaoImpl implements BookDao {
 	}
 	
 	@Override
+	public List<Book> findAllBooks(int pageSize, int offSet) {
+		return null;
+	}
+	
+	@Override
 	public List<Book> findAllBooks() {
 		return null;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import guru.springframework.jdbc.domain.Book;
 
 public interface BookDao {
+	List<Book> findAllBooks(int pageSize, int offSet);
 	List<Book> findAllBooks();
 	Book findByTitle(String title);
 	Book getById(Long id);
