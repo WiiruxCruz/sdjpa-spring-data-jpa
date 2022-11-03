@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,9 +15,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import guru.springframework.jdbc.dao.BookDao;
+import guru.springframework.jdbc.dao.impl.BookDaoHibernate;
 import guru.springframework.jdbc.domain.Author;
 import guru.springframework.jdbc.domain.Book;
-import net.bytebuddy.utility.RandomString;
+import jakarta.persistence.EntityManagerFactory;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -25,7 +27,14 @@ import net.bytebuddy.utility.RandomString;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class BookDaoHibernateTest {
 	@Autowired
+	EntityManagerFactory em;
+	
 	BookDao bd;
+	
+	@BeforeEach
+	void setup() {
+		bd = new BookDaoHibernate(em); 
+	}
 	
 	@Test
 	void findAllBooksSortByTitle() {
