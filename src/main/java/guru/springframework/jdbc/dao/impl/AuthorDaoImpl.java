@@ -37,7 +37,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	public List<Author> findAllAuthorByLastName(String lastName, Pageable pageable) {
 		// TODO Auto-generated method stub
 		
-		return null;
+		return ar.findAuthorByLastName(lastName, pageable).getContent();
 	}
 
     @Override
